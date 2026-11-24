@@ -1,0 +1,910 @@
+<!DOCTYPE html>
+<html lang="uk">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Директорська контрольна робота — Варіант 1</title>
+<style>
+  :root {
+    --primary: #1b365d;
+    --primary-light: #2b4c7e;
+    --bg: #f4f6f9;
+    --card: #ffffff;
+    --text: #1e293b;
+    --border: #cbd5e1;
+    --danger: #b91c1c;
+    --success: #15803d;
+  }
+  * {
+    box-sizing: border-box;
+    -webkit-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
+  }
+  input, textarea, select {
+    -webkit-user-select: text;
+    -moz-user-select: text;
+    -ms-user-select: text;
+    user-select: text;
+    font-family: "Times New Roman", Times, serif;
+    font-size: 16px;
+  }
+  body {
+    margin: 0;
+    padding: 0;
+    background: var(--bg);
+    color: var(--text);
+    font-family: "Times New Roman", Times, serif;
+    font-size: 17px;
+    line-height: 1.5;
+  }
+  .container {
+    max-width: 960px;
+    margin: 24px auto;
+    padding: 0 16px;
+  }
+  .card {
+    background: var(--card);
+    border: 1px solid var(--border);
+    border-radius: 6px;
+    padding: 28px 32px;
+    margin-bottom: 20px;
+    box-shadow: 0 2px 6px rgba(0,0,0,0.05);
+  }
+  .header-doc {
+    text-align: center;
+    border-bottom: 2px solid var(--primary);
+    padding-bottom: 16px;
+    margin-bottom: 20px;
+  }
+  .header-doc .inst {
+    font-size: 15px;
+    text-transform: uppercase;
+    font-weight: bold;
+    letter-spacing: 0.4px;
+    color: var(--primary);
+  }
+  .header-doc h1 {
+    font-size: 22px;
+    margin: 10px 0 4px;
+    text-transform: uppercase;
+  }
+  .header-doc .sub {
+    font-size: 17px;
+    font-weight: bold;
+  }
+  .warning-box {
+    background: #fef2f2;
+    border-left: 4px solid var(--danger);
+    padding: 14px 18px;
+    margin: 16px 0;
+    font-size: 16px;
+    border-radius: 4px;
+  }
+  .warning-box strong {
+    color: var(--danger);
+  }
+  .criteria-table {
+    width: 100%;
+    border-collapse: collapse;
+    margin: 12px 0 18px;
+    font-size: 15px;
+  }
+  .criteria-table th, .criteria-table td {
+    border: 1px solid #94a3b8;
+    padding: 7px 10px;
+    text-align: left;
+  }
+  .criteria-table th {
+    background: #e2e8f0;
+    font-weight: bold;
+  }
+  .form-row {
+    display: grid;
+    grid-template-columns: 2fr 1fr;
+    gap: 16px;
+    margin: 18px 0;
+  }
+  @media (max-width: 640px) {
+    .form-row, .match-grid, .match-select-row, .task-grid {
+      grid-template-columns: 1fr !important;
+    }
+  }
+  label {
+    display: block;
+    font-weight: bold;
+    margin-bottom: 6px;
+  }
+  input[type="text"], textarea, select {
+    width: 100%;
+    padding: 9px 11px;
+    border: 1px solid #94a3b8;
+    border-radius: 4px;
+    background: #fff;
+  }
+  input[type="text"]:focus, textarea:focus, select:focus {
+    outline: none;
+    border-color: var(--primary);
+    box-shadow: 0 0 0 2px rgba(27,54,93,0.15);
+  }
+  .btn {
+    display: inline-block;
+    background: var(--primary);
+    color: #fff;
+    border: none;
+    padding: 12px 26px;
+    font-size: 17px;
+    font-family: "Times New Roman", Times, serif;
+    font-weight: bold;
+    border-radius: 4px;
+    cursor: pointer;
+  }
+  .btn:hover {
+    background: var(--primary-light);
+  }
+  .top-bar {
+    position: sticky;
+    top: 0;
+    z-index: 100;
+    background: var(--primary);
+    color: #fff;
+    padding: 10px 20px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    font-size: 15px;
+    box-shadow: 0 2px 6px rgba(0,0,0,0.2);
+  }
+  .top-bar .timer {
+    font-weight: bold;
+    background: rgba(255,255,255,0.15);
+    padding: 4px 12px;
+    border-radius: 4px;
+  }
+  .block-title {
+    background: #e2e8f0;
+    border-left: 5px solid var(--primary);
+    padding: 8px 14px;
+    font-weight: bold;
+    font-size: 18px;
+    margin: 24px 0 14px;
+    border-radius: 0 4px 4px 0;
+  }
+  .q-item {
+    border-bottom: 1px dashed #cbd5e1;
+    padding: 14px 0;
+  }
+  .q-item:last-child {
+    border-bottom: none;
+  }
+  .q-text {
+    font-weight: bold;
+    margin-bottom: 10px;
+  }
+  .options label {
+    font-weight: normal;
+    display: flex;
+    align-items: flex-start;
+    gap: 10px;
+    padding: 6px 10px;
+    border-radius: 4px;
+    cursor: pointer;
+    margin-bottom: 4px;
+  }
+  .options label:hover {
+    background: #f1f5f9;
+  }
+  .options input[type="radio"] {
+    margin-top: 5px;
+  }
+  .match-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 18px;
+    margin-bottom: 12px;
+  }
+  .match-box {
+    background: #f8fafc;
+    border: 1px solid #cbd5e1;
+    padding: 12px 14px;
+    border-radius: 4px;
+  }
+  .match-select-row {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 10px;
+    margin-top: 10px;
+  }
+  .task-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 12px;
+    margin-top: 12px;
+  }
+  .hidden {
+    display: none !important;
+  }
+  .protocol {
+    border: 2px solid var(--primary);
+    background: #f8fafc;
+    padding: 20px;
+    border-radius: 6px;
+    margin-top: 16px;
+  }
+  .protocol-row {
+    display: flex;
+    justify-content: space-between;
+    border-bottom: 1px solid #cbd5e1;
+    padding: 7px 0;
+  }
+  .status-badge {
+    display: inline-block;
+    padding: 4px 10px;
+    border-radius: 4px;
+    font-weight: bold;
+    color: #fff;
+  }
+  .status-ok { background: var(--success); }
+  .status-viol { background: var(--danger); }
+  .answer-review {
+    margin-top: 18px;
+    background: #fff;
+    border: 1px solid #cbd5e1;
+    padding: 16px;
+    border-radius: 4px;
+  }
+  .answer-review h3 {
+    margin-top: 0;
+    color: var(--primary);
+  }
+  .review-block {
+    margin-bottom: 12px;
+    padding-bottom: 10px;
+    border-bottom: 1px solid #e2e8f0;
+    font-size: 15px;
+  }
+  .msg-modal {
+    position: fixed;
+    inset: 0;
+    background: rgba(15, 23, 42, 0.65);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 9999;
+    padding: 16px;
+  }
+  .msg-modal-box {
+    background: #fff;
+    max-width: 440px;
+    width: 100%;
+    padding: 22px 24px;
+    border-radius: 6px;
+    border-top: 5px solid var(--danger);
+    box-shadow: 0 10px 25px rgba(0,0,0,0.25);
+    text-align: center;
+  }
+  @media print {
+    .no-print { display: none !important; }
+    body { background: #fff; }
+    .card { box-shadow: none; border: none; padding: 0; }
+  }
+</style>
+</head>
+<body>
+
+<div id="msgModal" class="msg-modal hidden no-print">
+  <div class="msg-modal-box">
+    <h3 style="margin-top:0; color:#b91c1c;">Увага</h3>
+    <p id="msgModalText"></p>
+    <button type="button" class="btn" onclick="closeMsgModal()">Зрозуміло</button>
+  </div>
+</div>
+
+<div id="topBar" class="top-bar hidden no-print">
+  <div><strong id="barStudent"></strong> | Група: <strong id="barGroup"></strong> | Варіант 1</div>
+  <div class="timer">Залишилось часу: <span id="timerDisplay">45:00</span></div>
+</div>
+
+<div class="container">
+
+  <!-- ЕКРАН 1: СТАРТ ТА КРИТЕРІЇ -->
+  <div id="startScreen" class="card">
+    <div class="header-doc">
+      <div class="inst">КЗО «Томаківський професійний аграрний ліцей» Дніпропетровської обласної ради</div>
+      <h1>Директорська контрольна робота</h1>
+      <div class="sub">за підсумками І семестру з предмета «Основи галузевої економіки та підприємництва» — Варіант 1</div>
+    </div>
+
+    <div class="warning-box">
+      <strong>УВАГА! ПРАВИЛА ПРОХОДЖЕННЯ КОНТРОЛЬНОЇ РОБОТИ:</strong>
+      <ul style="margin: 8px 0 0 18px; padding: 0;">
+        <li>Робота виконується <strong>виключно у повноекранному режимі</strong>.</li>
+        <li><strong>Заборонено</strong> копіювати текст, вставляти текст із буфера обміну, виділяти завдання або відкривати контекстне меню.</li>
+        <li><strong>Автоматичне припинення роботи:</strong> якщо ви вийдете з повноекранного режиму (клавіша <code>Esc</code>), згорнете вікно, перемкнетеся на іншу вкладку або програму, система <strong>миттєво зафіксує порушення, зупинить роботу</strong> та заблокує повторне проходження.</li>
+        <li>Усі відповіді вводяться самостійно вручну. Час виконання — <strong>45 хвилин</strong>.</li>
+      </ul>
+    </div>
+
+    <h3>Структура роботи та критерії оцінювання (12-бальна шкала)</h3>
+    <table class="criteria-table">
+      <thead>
+        <tr>
+          <th>Блок завдань</th>
+          <th>Характер завдань</th>
+          <th>Кількість</th>
+          <th>Макс. бал</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td><strong>Блок 1</strong></td>
+          <td>Аналітичні тестові завдання підвищеної складності (1 правильна відповідь = 0,5 бала)</td>
+          <td>8 завдань</td>
+          <td>4,0 бали</td>
+        </tr>
+        <tr>
+          <td><strong>Блок 2</strong></td>
+          <td>Встановлення логічної відповідності (4 пари × 0,5 бала за кожну правильну пару)</td>
+          <td>1 завдання (4 пари)</td>
+          <td>2,0 бали</td>
+        </tr>
+        <tr>
+          <td><strong>Блок 3</strong></td>
+          <td>Проблемно-ситуаційні запитання з розгорнутою аргументованою відповіддю (по 1,0 балу за повне обґрунтування)</td>
+          <td>3 запитання</td>
+          <td>3,0 бали</td>
+        </tr>
+        <tr>
+          <td><strong>Блок 4</strong></td>
+          <td>Комплексна багатоетапна виробничо-економічна задача з покроковими розрахунками та висновком</td>
+          <td>1 задача</td>
+          <td>3,0 бали</td>
+        </tr>
+        <tr>
+          <td colspan="3" style="text-align:right;"><strong>РАЗОМ ЗА РОБОТУ:</strong></td>
+          <td><strong>12,0 балів</strong></td>
+        </tr>
+      </tbody>
+    </table>
+
+    <table class="criteria-table">
+      <thead>
+        <tr>
+          <th>Рівень навчальних досягнень</th>
+          <th>Бали (12-бальна шкала)</th>
+          <th>Критерії досягнення</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td><strong>Початковий</strong></td>
+          <td>1 – 3 бали</td>
+          <td>Фрагментарне впізнавання окремих економічних термінів; розрахунки відсутні або виконані з грубими помилками; відповіді на відкриті запитання не розкривають суті.</td>
+        </tr>
+        <tr>
+          <td><strong>Середній</strong></td>
+          <td>4 – 6 балів</td>
+          <td>Правильно виконано базові тестові завдання та частково встановлено відповідності; розрахункова задача виконана лише на початковому етапі без висновку; пояснення поверхневі.</td>
+        </tr>
+        <tr>
+          <td><strong>Достатній</strong></td>
+          <td>7 – 9 балів</td>
+          <td>Упевнене володіння матеріалом; більшість тестів і відповідностей виконано правильно; задача розв’язана з незначними неточностями в обґрунтуванні; у відкритих запитаннях наведено правильні, але неповні аргументи.</td>
+        </tr>
+        <tr>
+          <td><strong>Високий</strong></td>
+          <td>10 – 12 балів</td>
+          <td>Глибоке розуміння економічних процесів в АПК; точні покрокові розрахунки у задачі з грамотним економічним висновком; вичерпні, логічно структуровані відповіді на ситуаційні запитання.</td>
+        </tr>
+      </tbody>
+    </table>
+
+    <div class="form-row">
+      <div>
+        <label for="studentName">Прізвище, ім’я, по батькові студента (повністю):</label>
+        <input type="text" id="studentName" autocomplete="off">
+      </div>
+      <div>
+        <label for="studentGroup">Номер групи:</label>
+        <input type="text" id="studentGroup" autocomplete="off">
+      </div>
+    </div>
+
+    <div id="blockedNotice" class="warning-box hidden">
+      <strong>ДОСТУП ЗАБЛОКОВАНО:</strong> На цьому пристрої вже зафіксовано спробу проходження або порушення режиму виконання директорської контрольної роботи. Повторне проходження неможливе.
+    </div>
+
+    <button id="startBtn" class="btn" onclick="startExam()">Перейти в повноекранний режим і розпочати роботу</button>
+  </div>
+
+  <!-- ЕКРАН 2: РОБОЧА ЗОНА -->
+  <div id="examScreen" class="card hidden">
+    <div class="header-doc">
+      <div class="inst">КЗО «Томаківський професійний аграрний ліцей» Дніпропетровської обласної ради</div>
+      <h1>Директорська контрольна робота (Варіант 1)</h1>
+      <div class="sub">Предмет: «Основи галузевої економіки та підприємництва»</div>
+    </div>
+
+    <div class="block-title">Блок 1. Аналітичні тестові завдання (8 × 0,5 бала = 4,0 бали)</div>
+    <p><em>Оберіть одну правильну відповідь у кожному завданні.</em></p>
+
+    <div class="q-item">
+      <div class="q-text">1. Фермерське господарство після збору врожаю вирішує, яку частку чистого прибутку спрямувати на виплату дивідендів засновникам, а яку — на оновлення машинно-тракторного парку та преміювання механізаторів. Яке фундаментальне питання економіки розв’язується в цій ситуації?</div>
+      <div class="options">
+        <label><input type="radio" name="q1" value="а"> а) Що виробляти?</label>
+        <label><input type="radio" name="q1" value="б"> б) Як виробляти?</label>
+        <label><input type="radio" name="q1" value="в"> в) Для кого виробляти (як розподіляти створений продукт і дохід)?</label>
+        <label><input type="radio" name="q1" value="г"> г) Яку організаційно-правову форму обрати?</label>
+      </div>
+    </div>
+
+    <div class="q-item">
+      <div class="q-text">2. У сільському господарстві робочий період (посівна, догляд за посівами, збирання) не збігається з періодом виробництва (біологічним ростом рослин). Який безпосередній економічний наслідок це має для агропідприємства?</div>
+      <div class="options">
+        <label><input type="radio" name="q2" value="а"> а) Нерівномірність надходження виручки та потреба у значних оборотних коштах у міжсезоння</label>
+        <label><input type="radio" name="q2" value="б"> б) Повна відсутність постійних витрат у зимовий період</label>
+        <label><input type="radio" name="q2" value="в"> в) Автоматичне зниження собівартості продукції при зростанні врожайності в усіх сусідніх господарствах</label>
+        <label><input type="radio" name="q2" value="г"> г) Незалежність фінансових результатів від природно-кліматичних ризиків</label>
+      </div>
+    </div>
+
+    <div class="q-item">
+      <div class="q-text">3. Агропідприємство придбало мінеральні добрива вітчизняного хімкомбінату, навісний обприскувач українського заводу та застрахувало посіви. До яких сфер АПК належать виробники добрив і техніки?</div>
+      <div class="options">
+        <label><input type="radio" name="q3" value="а"> а) До І сфери АПК (галузі, що забезпечують сільське господарство засобами виробництва)</label>
+        <label><input type="radio" name="q3" value="б"> б) До ІІ сфери АПК (безпосередньо сільськогосподарське виробництво)</label>
+        <label><input type="radio" name="q3" value="в"> в) До ІІІ сфери АПК (заготівля, переробка та реалізація сільськогосподарської продукції)</label>
+        <label><input type="radio" name="q3" value="г"> г) Виключно до соціальної інфраструктури села</label>
+      </div>
+    </div>
+
+    <div class="q-item">
+      <div class="q-text">4. Територіальна громада планує передати в оренду земельну ділянку сільськогосподарського призначення комунальної власності для поповнення місцевого бюджету. Який порядок передачі такої землі передбачено чинним земельним законодавством України за загальним правилом?</div>
+      <div class="options">
+        <label><input type="radio" name="q4" value="а"> а) Безоплатна передача будь-якому місцевому фермеру без договору</label>
+        <label><input type="radio" name="q4" value="б"> б) Обов’язковий продаж ділянки у власність за символічною ціною</label>
+        <label><input type="radio" name="q4" value="в"> в) Передача в оренду виключно на конкурентних засадах — через електронні земельні торги (аукціон), крім визначених законом винятків</label>
+        <label><input type="radio" name="q4" value="г"> г) Передача в постійне користування лише державним підприємствам</label>
+      </div>
+    </div>
+
+    <div class="q-item">
+      <div class="q-text">5. На елеваторі зерно очистили, довели до базисних кондицій вологості та відвантажили борошномельному заводу, який виготовив борошно вищого ґатунку. До якої фази суспільного відтворення належить перетворення зерна на борошно?</div>
+      <div class="options">
+        <label><input type="radio" name="q5" value="а"> а) Розподіл</label>
+        <label><input type="radio" name="q5" value="б"> б) Виробництво</label>
+        <label><input type="radio" name="q5" value="в"> в) Обмін</label>
+        <label><input type="radio" name="q5" value="г"> г) Кінцеве споживання</label>
+      </div>
+    </div>
+
+    <div class="q-item">
+      <div class="q-text">6. При збільшенні площі посіву соняшнику в господарстві на 25% загальна сума витрат на насіння та дизельне пальне зросла пропорційно, тоді як орендна плата за приміщення майстерні залишилася незмінною. Як класифікуються витрати на насіння та пальне за характером залежності від обсягу виробництва?</div>
+      <div class="options">
+        <label><input type="radio" name="q6" value="а"> а) Умовно-постійні витрати</label>
+        <label><input type="radio" name="q6" value="б"> б) Змінні витрати</label>
+        <label><input type="radio" name="q6" value="в"> в) Адміністративні витрати</label>
+        <label><input type="radio" name="q6" value="г"> г) Позареалізаційні витрати</label>
+      </div>
+    </div>
+
+    <div class="q-item">
+      <div class="q-text">7. Відповідно до чинного законодавства України про бухгалтерський облік, підприємство самостійно затверджує форми первинних документів для обліку роботи тракторів і списання пального. За якої умови такий документ матиме юридичну силу та може бути підставою для списання ПММ на витрати?</div>
+      <div class="options">
+        <label><input type="radio" name="q7" value="а"> а) Якщо він містить усі обов’язкові реквізити первинного документа (назву, дату складання, назву підприємства, зміст та обсяг господарської операції, одиницю виміру, посади та підписи відповідальних осіб)</label>
+        <label><input type="radio" name="q7" value="б"> б) Лише за умови нотаріального посвідчення кожного бланка перед виїздом у поле</label>
+        <label><input type="radio" name="q7" value="в"> в) Тільки якщо бланк надрукований у державній друкарні та має гербову печатку</label>
+        <label><input type="radio" name="q7" value="г"> г) Достатньо усного звіту тракториста бригадиру без фіксації обсягу виконаних робіт</label>
+      </div>
+    </div>
+
+    <div class="q-item">
+      <div class="q-text">8. Трактор придбано за 1 200 000 грн, очікуваний загальний ресурс його роботи визначено в обсязі 12 000 мотогодин, ліквідаційна вартість дорівнює 0 грн. У перший рік трактор відпрацював 1 800 мотогодин, а в другий — 900 мотогодин. Який метод нарахування амортизації забезпечить пропорційне перенесення вартості техніки на собівартість робіт залежно від фактичного навантаження?</div>
+      <div class="options">
+        <label><input type="radio" name="q8" value="а"> а) Прямолінійний метод</label>
+        <label><input type="radio" name="q8" value="б"> б) Виробничий метод</label>
+        <label><input type="radio" name="q8" value="в"> в) Метод зменшення залишкової вартості</label>
+        <label><input type="radio" name="q8" value="г"> г) Кумулятивний метод</label>
+      </div>
+    </div>
+
+    <div class="block-title">Блок 2. Встановлення відповідності (4 × 0,5 бала = 2,0 бали)</div>
+    <p><em>Установіть відповідність між рівнями економічного аналізу (1–4) та конкретними показниками/об’єктами дослідження (А–Д). Один варіант у правому стовпчику є зайвим.</em></p>
+    <div class="match-grid">
+      <div class="match-box">
+        <strong>Рівні економічного аналізу:</strong><br>
+        1. Мікроекономіка<br>
+        2. Макроекономіка<br>
+        3. Регіональна економіка<br>
+        4. Глобальна економіка
+      </div>
+      <div class="match-box">
+        <strong>Показники та об’єкти дослідження:</strong><br>
+        А) Динаміка валового внутрішнього продукту (ВВП), рівень інфляції та облікова ставка НБУ в державі<br>
+        Б) Калькуляція собівартості 1 тонни пшениці та цінова стратегія конкретного фермерського господарства<br>
+        В) Світові біржові ціни на продовольство та експортні квоти між країнами<br>
+        Г) Галузева спеціалізація, інфраструктура та інвестиційний потенціал Дніпропетровської області<br>
+        Д) Технологічна карта обробітку ґрунту та агрохімічний склад чорнозему
+      </div>
+    </div>
+    <div class="match-select-row">
+      <div><label for="m1">1. Мікроекономіка:</label><select id="m1"><option value="">-- Оберіть літеру --</option><option value="А">А</option><option value="Б">Б</option><option value="В">В</option><option value="Г">Г</option><option value="Д">Д</option></select></div>
+      <div><label for="m2">2. Макроекономіка:</label><select id="m2"><option value="">-- Оберіть літеру --</option><option value="А">А</option><option value="Б">Б</option><option value="В">В</option><option value="Г">Г</option><option value="Д">Д</option></select></div>
+      <div><label for="m3">3. Регіональна економіка:</label><select id="m3"><option value="">-- Оберіть літеру --</option><option value="А">А</option><option value="Б">Б</option><option value="В">В</option><option value="Г">Г</option><option value="Д">Д</option></select></div>
+      <div><label for="m4">4. Глобальна економіка:</label><select id="m4"><option value="">-- Оберіть літеру --</option><option value="А">А</option><option value="Б">Б</option><option value="В">В</option><option value="Г">Г</option><option value="Д">Д</option></select></div>
+    </div>
+
+    <div class="block-title">Блок 3. Проблемно-ситуаційні запитання (3 × 1,0 бала = 3,0 бали)</div>
+    <p><em>Дайте розгорнуту, аргументовану відповідь (3–5 речень на кожне запитання).</em></p>
+
+    <div class="q-item">
+      <div class="q-text">1. Підприємництво в аграрній сфері має підвищений рівень ризику. Поясніть сутність підприємництва в сільському господарстві та порівняйте два конкретні напрями агробізнесу (наприклад, рослинництво та переробку/тваринництво) за критерієм стабільності грошових надходжень.</div>
+      <textarea id="open1" rows="4"></textarea>
+    </div>
+
+    <div class="q-item">
+      <div class="q-text">2. Невелике фермерське господарство планує придбати вітчизняну причіпну техніку та закласти систему крапельного зрошення, але має дефіцит власних обігових коштів. Які сучасні інструменти державної підтримки та фінансові механізми воно може використати в Україні (назвіть щонайменше 3 інструменти та поясніть їхню суть)?</div>
+      <textarea id="open2" rows="4"></textarea>
+    </div>
+
+    <div class="q-item">
+      <div class="q-text">3. Охарактеризуйте двосторонні економічні відносини між державою та аграрними підприємствами: які зобов’язання виконує підприємство перед державою і які функції щодо створення умов для агробізнесу покладено на державу?</div>
+      <textarea id="open3" rows="4"></textarea>
+    </div>
+
+    <div class="block-title">Блок 4. Комплексна виробничо-економічна задача (3,0 бали)</div>
+    <div class="q-item">
+      <div class="q-text">Умова задачі:</div>
+      <p>Фермерське господарство виконує оранку поля площею <strong>45 га</strong> тракторним агрегатом на базі МТЗ-82. Згідно з технологічною картою та даними обліку:</p>
+      <ul>
+        <li>базова норма витрат дизельного пального на оранку становить <strong>15,2 л/га</strong>;</li>
+        <li>через ускладнений рельєф та підвищену твердість ґрунту на ділянці площею <strong>15 га</strong> застосовується коефіцієнт підвищення витрат пального <strong>1,10</strong> (на решті <strong>30 га</strong> діє базова норма);</li>
+        <li>вартість 1 літра дизельного пального (без ПДВ) становить <strong>46,00 грн</strong>;</li>
+        <li>нормативна вартість мастильних матеріалів становить <strong>12% від вартості всього витраченого дизельного пального</strong>;</li>
+        <li>оплата праці тракториста-машиніста з нарахуваннями ЄСВ (22%) становить <strong>380 грн за 1 га</strong> обробленої площі.</li>
+      </ul>
+      <p><strong>Завдання:</strong> Виконайте покрокові розрахунки та заповніть усі поля нижче:</p>
+
+      <div class="task-grid">
+        <div>
+          <label>1. Витрати пального на перших 30 га (л):</label>
+          <input type="text" data-task-field="1. Пальне на 30 га (л)">
+        </div>
+        <div>
+          <label>2. Витрати пального на ускладнених 15 га з коефіцієнтом 1,10 (л):</label>
+          <input type="text" data-task-field="2. Пальне на 15 га (л)">
+        </div>
+        <div>
+          <label>3. Загальна витрата дизельного пального на все поле 45 га (л):</label>
+          <input type="text" data-task-field="3. Загальне пальне (л)">
+        </div>
+        <div>
+          <label>4. Загальна вартість дизельного пального (грн):</label>
+          <input type="text" data-task-field="4. Вартість пального (грн)">
+        </div>
+        <div>
+          <label>5. Вартість мастильних матеріалів — 12% (грн):</label>
+          <input type="text" data-task-field="5. Мастильні матеріали (грн)">
+        </div>
+        <div>
+          <label>6. Загальні витрати на ПММ разом (грн):</label>
+          <input type="text" data-task-field="6. Разом ПММ (грн)">
+        </div>
+        <div>
+          <label>7. Витрати на оплату праці з нарахуваннями на 45 га (грн):</label>
+          <input type="text" data-task-field="7. Оплата праці з ЄСВ (грн)">
+        </div>
+        <div>
+          <label>8. Прямі витрати (ПММ + оплата праці) у розрахунку на 1 га (грн/га):</label>
+          <input type="text" data-task-field="8. Прямі витрати на 1 га (грн/га)">
+        </div>
+      </div>
+      <div style="margin-top: 12px;">
+        <label>9. Короткий економічний висновок (як зміняться витрати на ПММ у розрахунку на 1 га, якщо тракторист знизить перевитрату пального на 5% за рахунок оптимального швидкісного режиму):</label>
+        <textarea rows="3" data-task-field="9. Економічний висновок"></textarea>
+      </div>
+    </div>
+
+    <div style="margin-top: 28px; text-align: center;">
+      <button type="button" class="btn" onclick="finishExam('completed')">Завершити роботу та зафіксувати відповіді</button>
+    </div>
+  </div>
+
+  <!-- ЕКРАН 3: ПІДСУМКОВИЙ ПРОТОКОЛ -->
+  <div id="resultScreen" class="card hidden">
+    <div class="header-doc">
+      <div class="inst">КЗО «Томаківський професійний аграрний ліцей» Дніпропетровської обласної ради</div>
+      <h1>Протокол фіксації виконання директорської контрольної роботи</h1>
+      <div class="sub">Варіант 1 | Предмет: «Основи галузевої економіки та підприємництва»</div>
+    </div>
+
+    <div class="protocol">
+      <div class="protocol-row"><span><strong>Студент:</strong></span><span id="resName"></span></div>
+      <div class="protocol-row"><span><strong>Група:</strong></span><span id="resGroup"></span></div>
+      <div class="protocol-row"><span><strong>Час початку:</strong></span><span id="resStart"></span></div>
+      <div class="protocol-row"><span><strong>Час завершення:</strong></span><span id="resEnd"></span></div>
+      <div class="protocol-row"><span><strong>Статус завершення:</strong></span><span id="resStatus"></span></div>
+      <div class="protocol-row"><span><strong>Причина завершення:</strong></span><span id="resReason"></span></div>
+      <div class="protocol-row"><span><strong>Контрольний код фіксації:</strong></span><span id="resCode" style="font-weight:bold; letter-spacing:1px;"></span></div>
+    </div>
+
+    <div class="warning-box" style="margin-top:16px;">
+      <strong>Інструкція для студента:</strong> Не закривайте це вікно. Зробіть скріншот протоколу або збережіть сторінку для передачі викладачеві. Повторний запуск тесту заблоковано. Остаточну оцінку за 12-бальною шкалою виставляє викладач після перевірки розрахунків та розгорнутих відповідей згідно з критеріями оцінювання.
+    </div>
+
+    <div id="studentAnswersDump" class="answer-review"></div>
+
+    <div class="no-print" style="margin-top:16px; text-align:center;">
+      <button class="btn" onclick="window.print()">Роздрукувати / Зберегти протокол у PDF</button>
+    </div>
+  </div>
+
+</div>
+
+<script>
+const STORAGE_KEY = "dkr_oge_sem1_var1_locked";
+let examActive = false;
+let examFinished = false;
+let startTimeStr = "";
+let timerInterval = null;
+let secondsLeft = 45 * 60;
+
+function showMsg(text) {
+  document.getElementById("msgModalText").textContent = text;
+  document.getElementById("msgModal").classList.remove("hidden");
+}
+
+function closeMsgModal() {
+  document.getElementById("msgModal").classList.add("hidden");
+}
+
+window.addEventListener("DOMContentLoaded", () => {
+  const saved = localStorage.getItem(STORAGE_KEY);
+  if (saved) {
+    try {
+      const parsed = JSON.parse(saved);
+      document.getElementById("startBtn").classList.add("hidden");
+      document.getElementById("blockedNotice").classList.remove("hidden");
+      showSavedProtocol(parsed);
+    } catch (e) {
+      document.getElementById("startBtn").classList.add("hidden");
+      document.getElementById("blockedNotice").classList.remove("hidden");
+    }
+  }
+});
+
+document.addEventListener("contextmenu", e => e.preventDefault());
+document.addEventListener("copy", e => e.preventDefault());
+document.addEventListener("cut", e => e.preventDefault());
+document.addEventListener("paste", e => e.preventDefault());
+document.addEventListener("dragstart", e => e.preventDefault());
+document.addEventListener("drop", e => e.preventDefault());
+
+document.addEventListener("keydown", e => {
+  if (!examActive) return;
+  const key = e.key.toLowerCase();
+  if ((e.ctrlKey || e.metaKey) && ["c", "v", "x", "a", "u", "s", "p", "f"].includes(key)) {
+    e.preventDefault();
+  }
+  if (e.key === "F12" || (e.ctrlKey && e.shiftKey && ["i", "j", "c"].includes(key))) {
+    e.preventDefault();
+  }
+});
+
+document.addEventListener("fullscreenchange", () => {
+  if (examActive && !examFinished && !document.fullscreenElement) {
+    finishExam("violation_fullscreen");
+  }
+});
+
+document.addEventListener("visibilitychange", () => {
+  if (examActive && !examFinished && document.hidden) {
+    finishExam("violation_tab");
+  }
+});
+
+window.addEventListener("blur", () => {
+  if (examActive && !examFinished) {
+    finishExam("violation_blur");
+  }
+});
+
+function startExam() {
+  if (localStorage.getItem(STORAGE_KEY)) {
+    showMsg("Доступ до контрольної роботи вже заблоковано на цьому пристрої.");
+    return;
+  }
+  const name = document.getElementById("studentName").value.trim();
+  const group = document.getElementById("studentGroup").value.trim();
+  if (name.length < 5 || !group) {
+    showMsg("Будь ласка, введіть повністю прізвище, ім’я, по батькові та номер групи.");
+    return;
+  }
+
+  const elem = document.documentElement;
+  const reqFs = elem.requestFullscreen || elem.webkitRequestFullscreen || elem.msRequestFullscreen;
+  if (reqFs) {
+    reqFs.call(elem).then(() => {
+      activateExamUI(name, group);
+    }).catch(() => {
+      showMsg("Для початку роботи необхідно дозволити перехід у повноекранний режим.");
+    });
+  } else {
+    activateExamUI(name, group);
+  }
+}
+
+function activateExamUI(name, group) {
+  examActive = true;
+  startTimeStr = new Date().toLocaleString("uk-UA");
+  document.getElementById("barStudent").textContent = name;
+  document.getElementById("barGroup").textContent = group;
+  document.getElementById("startScreen").classList.add("hidden");
+  document.getElementById("examScreen").classList.remove("hidden");
+  document.getElementById("topBar").classList.remove("hidden");
+
+  document.querySelectorAll("input, textarea").forEach(el => {
+    el.addEventListener("paste", e => e.preventDefault());
+    el.addEventListener("drop", e => e.preventDefault());
+  });
+
+  timerInterval = setInterval(() => {
+    secondsLeft--;
+    const m = String(Math.floor(secondsLeft / 60)).padStart(2, "0");
+    const s = String(secondsLeft % 60).padStart(2, "0");
+    document.getElementById("timerDisplay").textContent = `${m}:${s}`;
+    if (secondsLeft <= 0) {
+      finishExam("timeout");
+    }
+  }, 1000);
+}
+
+function collectResponses() {
+  const data = {
+    name: document.getElementById("studentName").value.trim(),
+    group: document.getElementById("studentGroup").value.trim(),
+    variant: "1",
+    tests: {},
+    matching: {},
+    open: {},
+    task: {}
+  };
+
+  for (let i = 1; i <= 8; i++) {
+    const checked = document.querySelector(`input[name="q${i}"]:checked`);
+    data.tests[`Питання ${i}`] = checked ? checked.value : "Не надано";
+  }
+
+  for (let i = 1; i <= 4; i++) {
+    const sel = document.getElementById(`m${i}`);
+    data.matching[`Позиція ${i}`] = sel && sel.value ? sel.value : "Не обрано";
+  }
+
+  for (let i = 1; i <= 3; i++) {
+    const ta = document.getElementById(`open${i}`);
+    data.open[`Ситуаційне запитання ${i}`] = ta && ta.value.trim() ? ta.value.trim() : "Відповідь відсутня";
+  }
+
+  document.querySelectorAll("[data-task-field]").forEach(el => {
+    const label = el.getAttribute("data-task-field");
+    data.task[label] = el.value.trim() ? el.value.trim() : "—";
+  });
+
+  return data;
+}
+
+function generateHash(str) {
+  let hash = 2166136261;
+  for (let i = 0; i < str.length; i++) {
+    hash ^= str.charCodeAt(i);
+    hash += (hash << 1) + (hash << 4) + (hash << 7) + (hash << 8) + (hash << 24);
+  }
+  return "DKR-V1-" + (hash >>> 0).toString(16).toUpperCase().padStart(8, "0");
+}
+
+function finishExam(reasonCode) {
+  if (examFinished) return;
+  examFinished = true;
+  examActive = false;
+  clearInterval(timerInterval);
+
+  const endTimeStr = new Date().toLocaleString("uk-UA");
+  const responses = collectResponses();
+
+  let statusText = "Завершено штатно";
+  let statusClass = "status-ok";
+  let reasonText = "Роботу здано студентом самостійно.";
+
+  if (reasonCode === "violation_fullscreen") {
+    statusText = "ПЕРЕРВАНО (ПОРУШЕННЯ РЕЖИМУ)";
+    statusClass = "status-viol";
+    reasonText = "Зафіксовано вихід із повноекранного режиму під час виконання роботи.";
+  } else if (reasonCode === "violation_tab") {
+    statusText = "ПЕРЕРВАНО (ПОРУШЕННЯ РЕЖИМУ)";
+    statusClass = "status-viol";
+    reasonText = "Зафіксовано перемикання на іншу вкладку або згортання вікна браузера.";
+  } else if (reasonCode === "violation_blur") {
+    statusText = "ПЕРЕРВАНО (ПОРУШЕННЯ РЕЖИМУ)";
+    statusClass = "status-viol";
+    reasonText = "Зафіксовано втрату фокусу вікна контрольної роботи (перехід в інше вікно/програму).";
+  } else if (reasonCode === "timeout") {
+    statusText = "ЗАВЕРШЕНО ЗА ЧАСОМ";
+    statusClass = "status-viol";
+    reasonText = "Вичерпано відведений ліміт часу (45 хвилин).";
+  }
+
+  const payload = {
+    name: responses.name,
+    group: responses.group,
+    startTime: startTimeStr,
+    endTime: endTimeStr,
+    statusText,
+    statusClass,
+    reasonText,
+    responses
+  };
+  payload.code = generateHash(JSON.stringify(payload));
+
+  localStorage.setItem(STORAGE_KEY, JSON.stringify(payload));
+
+  if (document.fullscreenElement && document.exitFullscreen) {
+    document.exitFullscreen().catch(() => {});
+  }
+
+  showSavedProtocol(payload);
+}
+
+function escapeHtml(str) {
+  return String(str)
+    .replace(/&/g, "&amp;")
+    .replace(/</g, "&lt;")
+    .replace(/>/g, "&gt;");
+}
+
+function showSavedProtocol(payload) {
+  document.getElementById("startScreen").classList.add("hidden");
+  document.getElementById("examScreen").classList.add("hidden");
+  document.getElementById("topBar").classList.add("hidden");
+  document.getElementById("resultScreen").classList.remove("hidden");
+
+  document.getElementById("resName").textContent = payload.name;
+  document.getElementById("resGroup").textContent = payload.group;
+  document.getElementById("resStart").textContent = payload.startTime;
+  document.getElementById("resEnd").textContent = payload.endTime;
+  document.getElementById("resStatus").innerHTML = `<span class="status-badge ${payload.statusClass}">${payload.statusText}</span>`;
+  document.getElementById("resReason").textContent = payload.reasonText;
+  document.getElementById("resCode").textContent = payload.code;
+
+  const r = payload.responses;
+  let html = "<h3>Зафіксовані відповіді студента (для перевірки викладачем)</h3>";
+
+  html += "<div class='review-block'><strong>Блок 1. Тестові завдання:</strong><br>";
+  Object.entries(r.tests).forEach(([k, v]) => {
+    html += `${escapeHtml(k)}: <strong>${escapeHtml(v)}</strong>; `;
+  });
+  html += "</div>";
+
+  html += "<div class='review-block'><strong>Блок 2. Встановлення відповідності:</strong><br>";
+  Object.entries(r.matching).forEach(([k, v]) => {
+    html += `${escapeHtml(k)} → <strong>${escapeHtml(v)}</strong>; `;
+  });
+  html += "</div>";
+
+  html += "<div class='review-block'><strong>Блок 3. Проблемно-ситуаційні запитання:</strong>";
+  Object.entries(r.open).forEach(([k, v]) => {
+    html += `<p style='margin:6px 0;'><em>${escapeHtml(k)}:</em> ${escapeHtml(v)}</p>`;
+  });
+  html += "</div>";
+
+  html += "<div class='review-block' style='border-bottom:none;'><strong>Блок 4. Розв’язання комплексної задачі:</strong>";
+  Object.entries(r.task).forEach(([k, v]) => {
+    html += `<div style='margin:4px 0;'><em>${escapeHtml(k)}:</em> <strong>${escapeHtml(v)}</strong></div>`;
+  });
+  html += "</div>";
+
+  document.getElementById("studentAnswersDump").innerHTML = html;
+}
+</script>
+</body>
+</html>
